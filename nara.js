@@ -13,22 +13,24 @@ var Carousel = (function() {
         var startPoint;
         var endPoint;
         this.setSettings();
-        this.element.addEventListener('mousedown', function(e){
+            this.element.addEventListener('mousedown', function(e){
             if(!this.isStarted){
                 return;
             }
-
             startPoint = { x: e.clientX, y: e.clientY };
+            console.log(startPoint);
         });
-        this.element.addEventListener('mouseup', function(){
+        this.element.addEventListener('mouseup', function(e){
             if(!this.isStarted){
                 return;
             }
-
             endPoint = { x: e.clientX,y: e.clientY };
-
+            console.log(endPoint);
             this.moveBasedOnPoints(startPoint, endPoint);
+            
         });
+
+        // this.start();
     }
 
     CaruselClass.prototype.setSettings = function() {
@@ -79,10 +81,11 @@ var Carousel = (function() {
 
     CaruselClass.prototype.moveNext = function() {
         // TODO
+        console.log(lastChild);
         var carouselWrapper = this.element.querySelector('ul');
         var carouselItems = this.element.querySelectorAll('li');
         var firstChild = carouselItems[0];
-        var lastChild = carouselItems[carouselItems.length - 1];
+        var lastChild = carouselItems[carouselItems.length];
         carouselWrapper.insertBefore(firstChild, lastChild);
     }
 
@@ -91,7 +94,7 @@ var Carousel = (function() {
         var carouselWrapper = this.element.querySelector('ul');
         var carouselItems = this.element.querySelectorAll('li');
         var firstChild = carouselItems[0];
-        var lastChild = carouselItems[carouselItems.length - 1];
+        var lastChild = carouselItems[carouselItems.length];
         carouselWrapper.insertBefore(firstChild, lastChild.nextSibling);
     }
 
