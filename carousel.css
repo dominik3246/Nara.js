@@ -1,0 +1,6 @@
+.carousel {
+  overflow: hidden;
+}
+.carousel ul.horizontal li {
+  float: left;
+}
