@@ -5,32 +5,34 @@
     <meta name="HandheldFriendly" content="True"/>
     <meta name="format-detection" content="telephone=no"/>
     <meta name="viewport" content="user-scalable=no,width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0"/>
-    <meta name="ad.size" content="width=300,height=600">
-    <link rel="stylesheet" href="normalize.css"/>
     <link rel="stylesheet" href="style.css"/>
-    
-
 </head>
 <body>
-<div class="banner">
-    <div class="banner-carouselContainer"
-        data-items-per-page="2" 
-        data-item-direction="vertical"
-    >
-        <ul class="banner-carouselWrapper"></ul>
+     
+    <div class="carousel">
+        <div class="carousel-container"
+            data-items-per-page="2"
+            data-item-direction="horizontal"
+        >
+            <ul class="carousel-container__wrapper">
+                <li>
+                    <img src="images/1.jpg">
+                </li>
+                <li>
+                    <img src="images/2.jpg">
+                </li>
+                <li>
+                    <img src="images/3.jpg">
+                </li>
+                <li>
+                    <img src="images/4.jpg">
+                </li>
+            </ul>
+            <!-- <div class="carousel-container__button-next"><img src="./images/arrow.png" alt="next"></div>
+            <div class="carousel-container__button-prev"><img src="./images/arrow.png" alt="prev"></div> -->
+        </div>
     </div>
-
-    <div class="prev">prev</div>
-    <div class="next">next</div>
-    <div class="logo"></div>
-    <div class="banner-field1" data-field-name="Headline" data-field-length="25"></div>
-    <div class="banner-field2" data-field-name="Text" data-field-length="90"></div>
-    <div class="banner-field3" data-field-name="Description" data-field-length="25"></div>
-    <div class="banner-field4" data-field-name="Button" data-field-length="15"></div>
-    
-</div>
-
-<script src="nara.js"></script>
+    <script src="nara.js"></script>
     <script src="script.js"></script>
 
 </body>

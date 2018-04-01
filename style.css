@@ -1,141 +1,17 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
-body {
-  font-family: "Roboto", sans-serif; }
+.carousel-container {
+  width: 500px;
+  height: 300px;
+  pointer-events: none;
+}
 
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
 
-  ul {
-    padding:0;
-    margin: 0;
-  }
-.banner,
-.fallback {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 300px;
-  height: 600px;
-  border: 1px solid #D9D9D9;
-  cursor: pointer; }
-
-.fallback {
-  background: #000 url("local-images/fallback.jpeg") no-repeat 50% 50%; }
-
-[class^="banner-field"]:empty {
-  visibility: hidden; }
-
-[class^="banner-field"] {
-  display: inline-block;
-  position: absolute; }
-
-.banner-field1 {
-  left: 5px;
-  right: 5px;
-  top: 16px;
-  width: auto;
-  max-width: 288px;
-  max-height: 70px;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 24px;
-  text-align: center;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  color: #000; }
-
-.banner-field1:hover {
-  left: 5px;
-  right: 5px;
-  top: 16px;
-  width: auto;
-  max-width: 288px;
-  max-height: 70px;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 24px;
-  text-align: center;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  color: #139DE8; }
-
-.banner-field2 {
-  left: 8px;
-  right: 8px;
-  top: 48px;
-  width: auto;
-  max-width: 288px;
-  max-height: 96px;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 22px;
-  text-align: center;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  color: #757575; }
-
-.banner-field3 {
-  left: 16px;
-  right: 16px;
-  bottom: 8px;
-  max-width: 288px;
-  max-height: 70px;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 18px;
-  text-align: center;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  color: #000; }
-
-.banner-field4 {
-  right: 16px;
-  left: 16px;
-  top: 444px;
-  margin: 0 auto;
-  padding: 8px 24px;
-  font-size: 14px;
-  line-height: 24px;
-  font-weight: 500;
-  text-align: center;
-  border-radius: 3px;
-  background-color: #FFF;
-  border: solid 1px #139DE8;
-  color: #FFF;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.24); }
-
-.banner-field4:hover {
-  right: 16px;
-  left: 16px;
-  top: 444px;
-  margin: 0 auto;
-  padding: 8px 24px;
-  font-size: 14px;
-  line-height: 24px;
-  font-weight: 500;
-  text-align: center;
-  border-radius: 3px;
-  background-color: #139DE8;
-  border: solid 1px #139DE8;
-  color: #fff;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.24); }
-
-.banner-field5 {
-  display: none; }
-
-.banner-carouselContainer {
-  position: absolute;
-  left: 0;
-  top: 112px;
-  width: 298px;
-  height: 316px; }
-
-.banner-carouselButtonNext,
-.banner-carouselButtonPrev {
-  display: none; }
-
-.logo {
-  position: absolute;
-  left: 5px;
-  right: 5px;
-  top: 494px;
-  height: 70px;
-  background-size: 70px; }
+img {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
