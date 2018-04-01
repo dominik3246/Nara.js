@@ -1,44 +1,99 @@
 var NaraInit = (function() {
-    function NaraInitClass() {
-        this.carousel = document.querySelector('.carousel');
-        this.carouselDatasets = this.carousel.querySelectorAll('[data-field-name]');
-        this.carouselContainer = document.querySelector('.carousel-container');
-        this.carouselWrapper = document.querySelector('.carousel-container__wrapper');
-        
-        this.numberPerPage = parseInt(this.carouselContainer.dataset.itemsPerPage);
-        this.carouselHorizontal = this.carouselContainer.dataset.itemDirection === 'horizontal';
+  function NaraInitClass() {
+    this.carouselContainer1 = document.querySelector(".carousel-container1");
+    this.carouselContainer2 = document.querySelector(".carousel-container2");
+    this.carouselContainer3 = document.querySelector(".carousel-container3");
+    this.carouselContainer4 = document.querySelector(".carousel-container4");
 
-        this.init();
-    }
+    this.numberPerPage1 = parseInt(
+      this.carouselContainer1.dataset.itemsPerPage
+    );
+    this.numberPerPage2 = parseInt(
+      this.carouselContainer2.dataset.itemsPerPage
+    );
+    this.numberPerPage3 = parseInt(
+      this.carouselContainer3.dataset.itemsPerPage
+    );
+    this.numberPerPage4 = parseInt(
+      this.carouselContainer4.dataset.itemsPerPage
+    );
+    this.carouselHorizontal1 =
+      this.carouselContainer1.dataset.itemDirection === "horizontal";
+    this.carouselHorizontal2 =
+      this.carouselContainer2.dataset.itemDirection === "horizontal";
+    this.carouselHorizontal3 =
+      this.carouselContainer3.dataset.itemDirection === "horizontal";
+    this.carouselHorizontal4 =
+      this.carouselContainer4.dataset.itemDirection === "horizontal";
 
-    NaraInitClass.prototype.init = function() {
-        this.includeImages();
-    }
+    this.init();
+  }
 
-    NaraInitClass.prototype.includeImages = function() {
-        
-        this.carouselContainer.style.overflow = 'hidden';
-        // for(var i = 1; i <= 4; i++) {
-        //     var li = document.createElement('li');
-        //     li.style.background = 'url(images/' + i + '.jpg) no-repeat 50% 50%';
-        //     li.style.width = '100%';
-        //     this.carouselWrapper.appendChild(li);
-        // }
-        
-        var carousel = new Nara(this.carouselContainer, {
-            isHorizontal: this.carouselHorizontal === undefined ? true : this.carouselHorizontal,
-            items: this.numberPerPage,
-            duration: 500,
-            autoplayTimeout: 2000,
-            navigation: {
-                prev: document.querySelector('.carousel-container__button-prev'),
-                next: document.querySelector('.carousel-container__button-next'),
-            }
-        });   
-        carousel.start();
-    }
+  NaraInitClass.prototype.init = function() {
+    this.initCarousel();
+  };
 
-    return NaraInitClass;
-}());
+  NaraInitClass.prototype.initCarousel = function() {
+    var example1 = new Nara(this.carouselContainer1, {
+      isHorizontal:
+        this.carouselHorizontal1 === undefined
+          ? true
+          : this.carouselHorizontal1,
+      items: this.numberPerPage1,
+      duration: 500,
+      autoplayTimeout: 2000,
+      navigation: {
+        prev: document.querySelector(".prev1"),
+        next: document.querySelector(".next1")
+      }
+    });
+    var example2 = new Nara(this.carouselContainer2, {
+      isHorizontal:
+        this.carouselHorizontal2 === undefined
+          ? true
+          : this.carouselHorizontal2,
+      items: this.numberPerPage2,
+      duration: 500,
+      autoplayTimeout: 2000,
+      navigation: {
+        prev: document.querySelector(".prev2"),
+        next: document.querySelector(".next2")
+      }
+    });
+    var example3 = new Nara(this.carouselContainer3, {
+      isHorizontal:
+        this.carouselHorizontal3 === undefined
+          ? true
+          : this.carouselHorizontal3,
+      items: this.numberPerPage3,
+      duration: 500,
+      autoplayTimeout: 2000,
+      navigation: {
+        prev: document.querySelector(".prev3"),
+        next: document.querySelector(".next3")
+      }
+    });
+    var example4 = new Nara(this.carouselContainer4, {
+      isHorizontal:
+        this.carouselHorizontal4 === undefined
+          ? true
+          : this.carouselHorizontal4,
+      items: this.numberPerPage4,
+      duration: 500,
+      autoplayTimeout: 2000,
+      navigation: {
+        prev: document.querySelector(".prev4"),
+        next: document.querySelector(".next4")
+      }
+    });
+
+    example1.start();
+    example2.start();
+    example3.start();
+    example4.start();
+  };
+
+  return NaraInitClass;
+})();
 
 var naraCarousel = new NaraInit();

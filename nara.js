@@ -20,36 +20,35 @@ var Nara = (function() {
     
     NaraClass.prototype.init = function() {
 
-        this.setSize();
         
         var carouselItems   = this.element.querySelectorAll('li'),
-            firstChild      = carouselItems[0],
-            lastChild       = carouselItems[carouselItems.length - 1],
-            lastElement     = carouselItems[carouselItems.length],
-            clonedFirst     = firstChild.cloneNode(true),
-            clonedLast      = lastChild.cloneNode(true);
-
+        firstChild      = carouselItems[0],
+        lastChild       = carouselItems[carouselItems.length - 1],
+        lastElement     = carouselItems[carouselItems.length],
+        clonedFirst     = firstChild.cloneNode(true),
+        clonedLast      = lastChild.cloneNode(true);
+        
         this.elements.list.insertBefore(clonedFirst, lastElement);
         this.elements.list.insertBefore(clonedLast, this.elements.list.firstChild);
-
+        
         if(!this.cfg.isHorizontal) {
             this.elements.list.style.marginTop = -(this.elements.container.clientHeight / this.cfg.items) + 'px';
         } else {
             this.elements.list.style.marginLeft = -(this.elements.container.clientWidth / this.cfg.items) + 'px';
         }
-
+        
         var startPoint;
         var endPoint;
         
         this.element.addEventListener('mousedown', function(e) {
-
+            
             if(!this.isMoved){
                 return;
             }
-
+            
             startPoint = { x: e.clientX, y: e.clientY };
         }.bind(this));
-
+        
         
         
         this.element.addEventListener('mouseup', function(e){
@@ -63,45 +62,46 @@ var Nara = (function() {
         }.bind(this));
         
         this.element.addEventListener('touchstart', function(e) {
-
+            
             if(!this.isMoved){
                 return;
             }
-
+            
             startPoint = { x: e.clientX, y: e.clientY };
         }.bind(this));
-
+        
         this.element.addEventListener('touchend', function(e){
-
+            
             if(!this.isMoved){
                 return;
             }
             endPoint = { x: e.clientX,y: e.clientY };
-
+            
             this.moveBasedOnPoints(startPoint, endPoint);
         }.bind(this));
-
+        
         if(this.cfg.navigation) {
             
             this.cfg.navigation.prev.addEventListener('click', function() {
                 this.movePrev()
             }.bind(this));
-             
+            
             this.cfg.navigation.next.addEventListener('click', function() {
                 this.moveNext()
             }.bind(this));
         }
+        this.setSize();
     }
-
+    
     NaraClass.prototype.setSize = function() {
         var carouselItems   = this.element.querySelectorAll('li'),
-            field           = this.cfg.isHorizontal ? 'width' : 'height',
-            size            = this.cfg.isHorizontal ? this.elements.container.clientWidth : this.elements.container.clientHeight;
-
+        field           = this.cfg.isHorizontal ? 'width' : 'height',
+        size            = this.cfg.isHorizontal ? this.elements.container.clientWidth : this.elements.container.clientHeight;
+        
         carouselItems.forEach(function(item) {
-           item.style[field] = size / this.cfg.items + 'px';
+            item.style[field] = size / this.cfg.items + 'px';
         }.bind(this));
-
+        
         if(this.cfg.isHorizontal) {
             this.elements.list.style.width = size * carouselItems.length + 'px';
 
