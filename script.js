@@ -30,10 +30,10 @@ var NaraInit = (function() {
             items: this.numberPerPage,
             duration: 500,
             autoplayTimeout: 2000,
-            // navigation: {
-            //     prev: document.querySelector('.banner-carousel__button-prev'),
-            //     next: document.querySelector('.banner-carousel__button-next'),
-            // }
+            navigation: {
+                prev: document.querySelector('.carousel-container__button-prev'),
+                next: document.querySelector('.carousel-container__button-next'),
+            }
         });   
         carousel.start();
     }
