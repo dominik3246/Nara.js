@@ -34,57 +34,69 @@ var NaraInit = (function() {
   };
 
   NaraInitClass.prototype.initCarousel = function() {
-    var example1 = new Nara(this.carouselContainer1, {
+    var example1 = new Nara({
       isHorizontal:
         this.carouselHorizontal1 === undefined
           ? true
           : this.carouselHorizontal1,
       items: this.numberPerPage1,
       duration: 500,
-      autoplayTimeout: 2000,
+      autoplayTimeout: 4000,
       navigation: {
         prev: document.querySelector(".prev1"),
         next: document.querySelector(".next1")
-      }
+      },
+      carouselContainerQuerySelector: '.carousel-container1',
+      carouselWrapperQuerySelector: '.carousel-container__wrapper1',
+      carouselItemQuerySelector: '.carousel__item1',
     });
-    var example2 = new Nara(this.carouselContainer2, {
+    var example2 = new Nara({
       isHorizontal:
         this.carouselHorizontal2 === undefined
           ? true
           : this.carouselHorizontal2,
       items: this.numberPerPage2,
       duration: 500,
-      autoplayTimeout: 2000,
+      autoplayTimeout: 4000,
       navigation: {
         prev: document.querySelector(".prev2"),
         next: document.querySelector(".next2")
-      }
+      },
+      carouselContainerQuerySelector: '.carousel-container2',
+      carouselWrapperQuerySelector: '.carousel-container__wrapper2',
+      carouselItemQuerySelector: '.carousel__item2',
     });
-    var example3 = new Nara(this.carouselContainer3, {
+    var example3 = new Nara({
       isHorizontal:
         this.carouselHorizontal3 === undefined
           ? true
           : this.carouselHorizontal3,
       items: this.numberPerPage3,
       duration: 500,
-      autoplayTimeout: 2000,
+      autoplayTimeout: 4000,
       navigation: {
         prev: document.querySelector(".prev3"),
         next: document.querySelector(".next3")
-      }
+      },
+      carouselContainerQuerySelector: '.carousel-container3',
+      carouselWrapperQuerySelector: '.carousel-container__wrapper3',
+      carouselItemQuerySelector: '.carousel__item3',
     });
-    var example4 = new Nara(this.carouselContainer4, {
+    var example4 = new Nara({
       isHorizontal:
         this.carouselHorizontal4 === undefined
           ? true
           : this.carouselHorizontal4,
       items: this.numberPerPage4,
       duration: 500,
-      autoplayTimeout: 2000,
+      autoplayTimeout: 4000,
       navigation: {
         prev: document.querySelector(".prev4"),
         next: document.querySelector(".next4")
-      }
+      },
+      carouselContainerQuerySelector: '.carousel-container4',
+      carouselWrapperQuerySelector: '.carousel-container__wrapper4',
+      carouselItemQuerySelector: '.carousel__item4',
     });
 
     example1.start();

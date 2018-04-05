@@ -1,32 +1,35 @@
 var Nara = (function() {
-    function NaraClass(element, cfg) {
-        this.element    = element;
+    function NaraClass(cfg) {
         this.cfg        = {
-            items:              cfg.items || 2,
-            duration:           cfg.duration || 500,
-            autoplayTimeout:    cfg.autoplayTimeout || 2000,
-            isHorizontal:       cfg.isHorizontal === undefined ? false : cfg.isHorizontal,
-            navigation:         cfg.navigation === undefined ? false : cfg.navigation,
+            items:                          cfg.items || 1,
+            duration:                       cfg.duration || 500,
+            autoplayTimeout:                cfg.autoplayTimeout || 4000,
+            isHorizontal:                   cfg.isHorizontal === undefined ? false : cfg.isHorizontal,
+            navigation:                     cfg.navigation === undefined ? false : cfg.navigation,
+            carouselContainerQuerySelector: cfg.carouselContainerQuerySelector || '.nara-carousel__container',
+            carouselWrapperQuerySelector:   cfg.carouselWrapperQuerySelector || '.nara-carousel__wrapper',
+            carouselItemQuerySelector:      cfg.carouselItemQuerySelector || '.nara-carousel__item',
         };
         this.timer      = null;
         this.isStarted  = false;
         this.isMoved = false;
+        var container = document.querySelector(this.cfg.carouselContainerQuerySelector);
         this.elements = {
-            container: element,
-            list: element.querySelector('ul'),
+            container: container,
+            list: container.querySelector(this.cfg.carouselWrapperQuerySelector),
         }
         this.init();
     }
     
     NaraClass.prototype.init = function() {
 
-        
-        var carouselItems   = this.element.querySelectorAll('li'),
+        var carouselItems   = this.elements.container.querySelectorAll(this.cfg.carouselItemQuerySelector),
         firstChild      = carouselItems[0],
         lastChild       = carouselItems[carouselItems.length - 1],
         lastElement     = carouselItems[carouselItems.length],
         clonedFirst     = firstChild.cloneNode(true),
         clonedLast      = lastChild.cloneNode(true);
+
         
         this.elements.list.insertBefore(clonedFirst, lastElement);
         this.elements.list.insertBefore(clonedLast, this.elements.list.firstChild);
@@ -40,7 +43,7 @@ var Nara = (function() {
         var startPoint;
         var endPoint;
         
-        this.element.addEventListener('mousedown', function(e) {
+        this.elements.container.addEventListener('mousedown', function(e) {
             
             if(!this.isMoved){
                 return;
@@ -51,7 +54,7 @@ var Nara = (function() {
         
         
         
-        this.element.addEventListener('mouseup', function(e){
+        this.elements.container.addEventListener('mouseup', function(e){
             
             if(!this.isMoved){
                 return;
@@ -61,7 +64,7 @@ var Nara = (function() {
             this.moveBasedOnPoints(startPoint, endPoint);
         }.bind(this));
         
-        this.element.addEventListener('touchstart', function(e) {
+        this.elements.container.addEventListener('touchstart', function(e) {
             
             if(!this.isMoved){
                 return;
@@ -70,7 +73,7 @@ var Nara = (function() {
             startPoint = { x: e.clientX, y: e.clientY };
         }.bind(this));
         
-        this.element.addEventListener('touchend', function(e){
+        this.elements.container.addEventListener('touchend', function(e){
             
             if(!this.isMoved){
                 return;
@@ -80,7 +83,7 @@ var Nara = (function() {
             this.moveBasedOnPoints(startPoint, endPoint);
         }.bind(this));
         
-        if(this.cfg.navigation) {
+        if(this.cfg.navigation && this.cfg.navigation.prev && this.cfg.navigation.next) {
             
             this.cfg.navigation.prev.addEventListener('click', function() {
                 this.movePrev()
@@ -94,14 +97,21 @@ var Nara = (function() {
     }
     
     NaraClass.prototype.setSize = function() {
-        var carouselItems   = this.element.querySelectorAll('li'),
-        field           = this.cfg.isHorizontal ? 'width' : 'height',
-        size            = this.cfg.isHorizontal ? this.elements.container.clientWidth : this.elements.container.clientHeight;
-        
+        var carouselItems   = this.elements.container.querySelectorAll(this.cfg.carouselItemQuerySelector),
+        field               = this.cfg.isHorizontal ? 'width' : 'height',
+        size                = this.cfg.isHorizontal ? this.elements.container.clientWidth : this.elements.container.clientHeight;
         carouselItems.forEach(function(item) {
             item.style[field] = size / this.cfg.items + 'px';
         }.bind(this));
-        
+
+        var navPrevClassName = this.cfg.isHorizontal && 'nara-btn__prev-h' || 'nara-btn__prev-v';
+        var navNextClassName = this.cfg.isHorizontal && 'nara-btn__next-h' || 'nara-btn__next-v';
+
+        if(this.cfg.navigation && this.cfg.navigation.prev && this.cfg.navigation.next) {
+            this.cfg.navigation.prev.classList.add(navPrevClassName);
+            this.cfg.navigation.next.classList.add(navNextClassName);
+        }
+
         if(this.cfg.isHorizontal) {
             this.elements.list.style.width = size * carouselItems.length + 'px';
 
@@ -109,19 +119,7 @@ var Nara = (function() {
                 item.style.height   = this.elements.container.clientHeight + 'px';
                 item.style.float    = 'left';
              }.bind(this));
-
-            if(this.cfg.navigation) {
-                this.cfg.navigation.prev.classList.add('nara-btn__prev-h');
-                this.cfg.navigation.next.classList.add('nara-btn__next-h');
-            } 
-            return;
         }
-
-        if(this.cfg.navigation) {
-            this.cfg.navigation.prev.classList.add('nara-btn__prev-v');
-            this.cfg.navigation.next.classList.add('nara-btn__next-v');
-        }
-
     }
 
     NaraClass.prototype.moveBasedOnPoints = function(startPoint, endPoint) {
@@ -173,12 +171,14 @@ var Nara = (function() {
     }
 
     NaraClass.prototype.moveNext = function() {
-        if(!this.isMoved) {
-            return;
+        if(this.isStarted) {
+            if(!this.isMoved) {
+                return;
+            }
         }
-
-        this.isMoved = false;
-        var carouselItems   = this.element.querySelectorAll('li'),
+            
+            this.isMoved = false;
+        var carouselItems   = this.elements.container.querySelectorAll(this.cfg.carouselItemQuerySelector),
             firstChild      = carouselItems[0],
             lastChild       = carouselItems[carouselItems.length],
             clonedSecond    = carouselItems[2].cloneNode(true);
@@ -207,14 +207,17 @@ var Nara = (function() {
     }
 
     NaraClass.prototype.movePrev = function() {
-        if(!this.isMoved) {
-            return;
+        if(this.isStarted) {
+            if(!this.isMoved) {
+                return;
+            }
         }
+
         this.isMoved = false;
 
-        var carouselItems   = this.element.querySelectorAll('li'),
-            firstChild      = carouselItems[0],
-            lastChild       = carouselItems[carouselItems.length - 1],
+        var carouselItems    = this.elements.container.querySelectorAll(this.cfg.carouselItemQuerySelector),
+            firstChild       = carouselItems[0],
+            lastChild        = carouselItems[carouselItems.length - 1],
             clonedSecondLast = carouselItems[carouselItems.length - 3].cloneNode(true);
 
         this.elements.list.style.transition = 'all ' + this.cfg.duration / 1000 + 's';
